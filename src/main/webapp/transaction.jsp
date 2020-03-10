@@ -20,6 +20,7 @@
     <p><label for="amount">Amount</label><br/><input type="text" name="amount" id="amount" value="" size="30"></p>
     <input type="submit">
 </form>
+    <p><a href="./home">home</a></p>
 </div>
 </body>
 </html>

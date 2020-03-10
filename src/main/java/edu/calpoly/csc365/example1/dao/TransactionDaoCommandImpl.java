@@ -20,13 +20,14 @@ public class TransactionDaoCommandImpl implements DaoCommand {
         try {
             conn = daoManager.getConnection();
             preparedStatement = conn.prepareStatement(
-                    "INSERT INTO transaction (cid, ccnum, pid, amount, day) VALUES (?, ?, ?, ?, ?)",
+                    "INSERT INTO transaction (cid, ccnum, amount, day) VALUES (?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
+            System.out.println("hello");
             preparedStatement.setInt(1, transaction.getCustomerId());
             preparedStatement.setInt(2, transaction.getCardNumber());
-            preparedStatement.setInt(3, transaction.getVendorId());
-            preparedStatement.setDouble(4, transaction.getAmount());
-            preparedStatement.setDate(5, transaction.getDate());
+           /* preparedStatement.setInt(3, transaction.getVendorId());*/
+            preparedStatement.setDouble(3, transaction.getAmount());
+            preparedStatement.setDate(4, transaction.getDate());
             rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
                 resultSet = preparedStatement.getGeneratedKeys();

@@ -50,7 +50,10 @@ public class SignupServlet extends HttpServlet {
         user.setName(name);
         user.setPass(pass);
         this.userDao.insert(user);
-        response.sendRedirect("edit_customer?id=" + id.toString());
+        Cookie loginCookie = AuthenticationService.createLoginCookie(name);
+        response.addCookie(loginCookie);
+        response.sendRedirect("home");
+
     }
 
 }

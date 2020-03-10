@@ -17,6 +17,7 @@
     <p><label for="pass">Password</label><input type="password" name="pass" id="pass" value="" size="20"></p>
     <p><input type="submit"></p>
 </form>
+    <p><a href="./signup">signup</a></p>
 </div>
 </body>
 </html>

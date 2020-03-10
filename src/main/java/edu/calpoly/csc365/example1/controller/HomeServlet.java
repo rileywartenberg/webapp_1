@@ -15,33 +15,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Set;
 
-@WebServlet(name = "LoginServlet", urlPatterns = "/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "HomeServlet", urlPatterns = "/home")
+public class HomeServlet extends HttpServlet {
     private DaoManager dm = null;
     private AuthenticationService authenticationService = null;
 
-    public LoginServlet() throws Exception {
+    public HomeServlet() throws Exception {
         dm = DaoManagerFactory.createDaoManager();
         authenticationService = new AuthenticationService(dm.getUserDao());
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("login.jsp").forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String pass = request.getParameter("pass");
-        if (authenticationService.authenticate(name, pass)) {
-            Cookie loginCookie = AuthenticationService.createLoginCookie(name);
-            response.addCookie(loginCookie);
-            response.sendRedirect("home");
-        } else {
+        Cookie loginCookie = AuthenticationService.getLoginCookie(request);
+        if (loginCookie == null) {
             response.sendRedirect("login");
+        } else {
+            response.addCookie(loginCookie);
+            request.getRequestDispatcher("home.jsp").forward(request, response);
         }
     }
-
 }
