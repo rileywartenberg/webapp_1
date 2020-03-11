@@ -8,4 +8,7 @@ public interface Dao<T> {
   Integer insert(T obj);
   Integer update(T obj);
   Integer delete(T obj);
+  T getByName(String name);
+  Set<T> getAllById(int id);
+
 }

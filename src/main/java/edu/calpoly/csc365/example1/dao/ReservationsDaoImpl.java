@@ -15,6 +15,36 @@ public class ReservationsDaoImpl implements Dao<Reservations> {
         this.conn = conn;
     }
 
+    public Reservations getByName(String name) { return null;}
+
+    public Set<Reservations> getAllById(int id) {
+        Set<Reservations> reservations = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = this.conn.prepareStatement("SELECT * FROM Reservations WHERE cid=?");
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            reservations = unpackResultSet(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return reservations;
+    }
+
     @Override
     public Reservations getById(int id) {
         Reservations reservations = null;
@@ -47,13 +77,13 @@ public class ReservationsDaoImpl implements Dao<Reservations> {
 
     @Override
     public Set<Reservations> getAll() {
-        Set<Reservations> reservationss = null;
+        Set<Reservations> reservations = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
             preparedStatement = this.conn.prepareStatement("SELECT * FROM Reservations");
             resultSet = preparedStatement.executeQuery();
-            reservationss = unpackResultSet(resultSet);
+            reservations = unpackResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -70,7 +100,7 @@ public class ReservationsDaoImpl implements Dao<Reservations> {
                 e.printStackTrace();
             }
         }
-        return reservationss;
+        return reservations;
     }
 
     @Override
@@ -123,15 +153,15 @@ public class ReservationsDaoImpl implements Dao<Reservations> {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = this.conn.prepareStatement(
-                    "UPDATE Reservations SET cid=?, room=?, checkin=?, checkout=?, rate=?,adults=?,kids=? WHERE id=?");
+                    "UPDATE Reservations SET cid=?, room=?, checkin=?, checkout=?, rate=?, adults=?, kids=? WHERE id=?");
             preparedStatement.setInt(1, obj.getCid());
-            preparedStatement.setInt(2, obj.getId());
-            preparedStatement.setString(3, obj.getRoom());
-            preparedStatement.setDate(4, obj.getCheckin());
-            preparedStatement.setDate(5, obj.getCheckout());
-            preparedStatement.setDouble(6, obj.getRate());
-            preparedStatement.setInt(7, obj.getAdults());
-            preparedStatement.setInt(8, obj.getKids());
+            preparedStatement.setString(2, obj.getRoom());
+            preparedStatement.setDate(3, obj.getCheckin());
+            preparedStatement.setDate(4, obj.getCheckout());
+            preparedStatement.setDouble(5, obj.getRate());
+            preparedStatement.setInt(6, obj.getAdults());
+            preparedStatement.setInt(7, obj.getKids());
+            preparedStatement.setInt(8, obj.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

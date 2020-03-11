@@ -15,6 +15,11 @@ public class CreditCardDaoImpl implements Dao<CreditCard> {
     this.conn = conn;
   }
 
+
+  public CreditCard getByName(String name) { return null;}
+
+  public Set<CreditCard> getAllById(int id) { return null;}
+
   @Override
   public CreditCard getById(int id) {
     CreditCard creditCard = null;

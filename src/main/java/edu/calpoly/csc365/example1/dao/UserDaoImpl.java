@@ -17,6 +17,9 @@ public class UserDaoImpl implements UserDao {
     this.conn = conn;
   }
 
+
+    public Set<User> getAllById(int id) { return null;}
+
   @Override
   public Boolean authenticate(String name, String pass) {
     Boolean authenticated = false;
@@ -74,10 +77,36 @@ public class UserDaoImpl implements UserDao {
     return null;
   }
 
-  @Override
-  public Integer insert(User obj) {
-    return null;
-  }
+    @Override
+    public Integer insert(User obj) {
+        Integer id = 1;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = this.conn.prepareStatement(
+                    "INSERT INTO Users (name, pass, cid) VALUES (?, ?, ?)");
+            preparedStatement.setString(1, obj.getName());
+            preparedStatement.setString(2, obj.getPass());
+            preparedStatement.setInt(3, obj.getCid());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return id;
+    }
 
   @Override
   public Integer update(User obj) {

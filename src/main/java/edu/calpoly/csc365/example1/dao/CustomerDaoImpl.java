@@ -1,6 +1,7 @@
 package edu.calpoly.csc365.example1.dao;
 
 import edu.calpoly.csc365.example1.entity.Customer;
+import edu.calpoly.csc365.example1.entity.Reservations;
 
 import java.sql.*;
 import java.util.HashSet;
@@ -13,7 +14,11 @@ public class CustomerDaoImpl implements Dao<Customer> {
     this.conn = conn;
   }
 
-  @Override
+    public Customer getByName(String name) { return null;}
+
+    public Set<Customer> getAllById(int id) { return null;}
+
+    @Override
   public Customer getById(int id) {
     Customer customer = null;
     PreparedStatement preparedStatement = null;

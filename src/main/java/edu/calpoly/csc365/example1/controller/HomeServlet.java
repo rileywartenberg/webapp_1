@@ -4,7 +4,9 @@ import edu.calpoly.csc365.example1.dao.Dao;
 import edu.calpoly.csc365.example1.dao.DaoManager;
 import edu.calpoly.csc365.example1.dao.DaoManagerFactory;
 import edu.calpoly.csc365.example1.dao.UserDao;
+import edu.calpoly.csc365.example1.dao.ReservationsDaoImpl;
 import edu.calpoly.csc365.example1.entity.Customer;
+import edu.calpoly.csc365.example1.entity.Reservations;
 import edu.calpoly.csc365.example1.entity.User;
 import edu.calpoly.csc365.example1.service.AuthenticationService;
 
@@ -21,10 +23,14 @@ import java.util.Set;
 public class HomeServlet extends HttpServlet {
     private DaoManager dm = null;
     private AuthenticationService authenticationService = null;
+    private Dao<Reservations> reservationDao;
+    private Dao<User> userDao;
 
     public HomeServlet() throws Exception {
         dm = DaoManagerFactory.createDaoManager();
         authenticationService = new AuthenticationService(dm.getUserDao());
+        reservationDao = dm.getReservationsDao();
+        userDao = dm.getUserDao();
     }
 
     @Override
@@ -34,6 +40,11 @@ public class HomeServlet extends HttpServlet {
             response.sendRedirect("login");
         } else {
             response.addCookie(loginCookie);
+            String name = loginCookie.getValue();
+            User user = userDao.getByName(name);
+            Integer id = user.getCid();
+            Set<Reservations> reservations = reservationDao.getAllById(id);
+            request.setAttribute("reservations", reservations);
             request.getRequestDispatcher("home.jsp").forward(request, response);
         }
     }

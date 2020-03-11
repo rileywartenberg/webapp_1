@@ -45,10 +45,7 @@ public class SignupServlet extends HttpServlet {
         String pass = request.getParameter("pass");
         Customer customer = new Customer(id, ssn, lastName, firstName, address, phoneNumber);
         id = this.customerDao.insert(customer);
-        User user = new User();
-        user.setCid(id);
-        user.setName(name);
-        user.setPass(pass);
+        User user = new User(id, name, pass);
         this.userDao.insert(user);
         Cookie loginCookie = AuthenticationService.createLoginCookie(name);
         response.addCookie(loginCookie);
