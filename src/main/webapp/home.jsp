@@ -9,6 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="home.css">
     <title>home</title>
     <style>
         table {
@@ -27,7 +28,11 @@
     </style>
 </head>
 <body>
-Message:
+    <ul>
+    <li><a href="./customers">customers</a></li>
+    <li><a href="./create_reservations">make a reservations</a></li>
+    <li><a href="./logout">logout</a></li>
+    </ul>
 <p>${message}</p>
 <table>
     <thead>Reservations</thead>
@@ -44,8 +49,5 @@ Message:
         </tr>
     </c:forEach>
 </table>
-    <p><a href="./customers">customers</a></p>
-    <p><a href="./create_reservations">make a reservations</a></p>
-    <p><a href="./logout">logout</a></p>
 </body>
 </html>

@@ -25,12 +25,14 @@ public class HomeServlet extends HttpServlet {
     private AuthenticationService authenticationService = null;
     private Dao<Reservations> reservationDao;
     private Dao<User> userDao;
+    private Dao<Customer> customerDao;
 
     public HomeServlet() throws Exception {
         dm = DaoManagerFactory.createDaoManager();
         authenticationService = new AuthenticationService(dm.getUserDao());
         reservationDao = dm.getReservationsDao();
         userDao = dm.getUserDao();
+        customerDao = dm.getCustomerDao();
     }
 
     @Override
@@ -43,8 +45,10 @@ public class HomeServlet extends HttpServlet {
             String name = loginCookie.getValue();
             User user = userDao.getByName(name);
             Integer id = user.getCid();
+            Customer c = customerDao.getById(id);
             Set<Reservations> reservations = reservationDao.getAllById(id);
             request.setAttribute("reservations", reservations);
+            request.setAttribute("message", "Hello " + c.getFirstName() + " " + c.getLastName());
             request.getRequestDispatcher("home.jsp").forward(request, response);
         }
     }
