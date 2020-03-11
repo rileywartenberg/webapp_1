@@ -1,11 +1,13 @@
 package edu.calpoly.csc365.example1.dao;
 
+import edu.calpoly.csc365.example1.entity.Customer;
 import edu.calpoly.csc365.example1.entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.Set;
 
 public class UserDaoImpl implements UserDao {
@@ -32,29 +34,17 @@ public class UserDaoImpl implements UserDao {
     }
     return authenticated;
   }
-
-  @Override
-  public User getById(int id) {
-    return null;
-  }
-
-  @Override
-  public Set<User> getAll() {
-    return null;
-  }
-
-  @Override
-  public Integer insert(User obj) {
-    Integer id = 1;
+  public User getByName(String name)
+  {
+    User user = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     try {
-      preparedStatement = this.conn.prepareStatement(
-              "INSERT INTO Users (name, pass, cid) VALUES (?, ?, ?)");
-      preparedStatement.setString(1, obj.getName());
-      preparedStatement.setString(2, obj.getPass());
-      preparedStatement.setInt(3, obj.getCid());
-      int numRows = preparedStatement.executeUpdate();
+      preparedStatement = this.conn.prepareStatement("SELECT * FROM Users WHERE name=?");
+      preparedStatement.setString(1, name);
+      resultSet = preparedStatement.executeQuery();
+      Set<User> users = unpackResultSet(resultSet);
+      user = (User)users.toArray()[0];
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -71,7 +61,22 @@ public class UserDaoImpl implements UserDao {
         e.printStackTrace();
       }
     }
-    return id;
+    return user;
+  }
+
+  @Override
+  public User getById(int id) {
+    return null;
+  }
+
+  @Override
+  public Set<User> getAll() {
+    return null;
+  }
+
+  @Override
+  public Integer insert(User obj) {
+    return null;
   }
 
   @Override
@@ -82,5 +87,19 @@ public class UserDaoImpl implements UserDao {
   @Override
   public Integer delete(User obj) {
     return null;
+  }
+
+  private Set<User> unpackResultSet(ResultSet rs) throws SQLException {
+    Set<User> users = new HashSet<User>();
+
+    while(rs.next()) {
+      User user = new User(
+              rs.getInt("cid"),
+              rs.getString("name"),
+              rs.getString("pass")
+      );
+      users.add(user);
+    }
+    return users;
   }
 }
