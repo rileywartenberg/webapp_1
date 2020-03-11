@@ -20,11 +20,12 @@
     <p><label for="checkin">checkin</label><br/><input type="text" name="checkin" id="checkin" value="${reservations.checkin}" size="30"></p>
     <p><label for="checkout">checkout</label><br/><input type="text" name="checkout" id="checkout" value="${reservations.checkout}" size="30"></p>
     <p><label for="rate">rate</label><br/><input type="text" name="rate" id="rate" value="" size="30"></p>
-    <p><label for="adults">adults/label><br/><input type="text" name="adults" id="adults" value="" size="30"></p>
+    <p><label for="adults">adults</label><br/><input type="text" name="adults" id="adults" value="" size="30"></p>
     <p><label for="kids">kids</label><br/><input type="text" name="kids" id="kids" value="" size="30"></p>
 
     <p><input type="submit">
 </form>
+    <p><a href="./home">home</a></p>
 </div>
 </body>
 </html>

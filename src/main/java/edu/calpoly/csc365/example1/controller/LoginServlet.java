@@ -1,11 +1,7 @@
 package edu.calpoly.csc365.example1.controller;
 
-import edu.calpoly.csc365.example1.dao.Dao;
 import edu.calpoly.csc365.example1.dao.DaoManager;
 import edu.calpoly.csc365.example1.dao.DaoManagerFactory;
-import edu.calpoly.csc365.example1.dao.UserDao;
-import edu.calpoly.csc365.example1.entity.Customer;
-import edu.calpoly.csc365.example1.entity.User;
 import edu.calpoly.csc365.example1.service.AuthenticationService;
 
 import javax.servlet.ServletException;
@@ -15,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {

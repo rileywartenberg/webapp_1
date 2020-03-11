@@ -14,7 +14,7 @@
 <div style="width:30%;height:50%;margin:10% auto;padding: 10px;">
 <form method="post" action="home">
     <p><a href="./customers">customers</a></p>
-    <p><a href="./transaction">create a transaction</a></p>
+    <p><a href="./create_reservations">make a reservations</a></p>
     <p><a href="./logout">logout</a></p>
 </form>
 </div>
