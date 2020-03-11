@@ -38,7 +38,7 @@
 <p>${message}</p>
 <table>
     <thead>Reservations</thead>
-    <tr><th>id</th><th>room</th><th>checkIn</th><th>checkIn</th><th>checkOut</th><th>adults</th><th>kids</th></tr>
+    <tr><th>id</th><th>room</th><th>checkIn</th><th>checkOut</th><th>rate</th><th>adults</th><th>kids</th></tr>
     <c:forEach items="${reservations}" var="reservation">
         <tr>
             <td>${reservation.id}</td>
