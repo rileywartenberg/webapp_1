@@ -3,6 +3,7 @@ package edu.calpoly.csc365.example1.dao;
 import edu.calpoly.csc365.example1.entity.Reservations;
 
 import java.sql.*;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 import java.sql.Date;
@@ -200,16 +201,15 @@ public class ReservationsDaoImpl implements Dao<Reservations> {
 
     private Set<Reservations> unpackResultSet(ResultSet rs) throws SQLException {
         Set<Reservations> reservationss = new HashSet<Reservations>();
-
         while(rs.next()) {
             Reservations reservations = new Reservations(
                     rs.getInt("cid"),
-                            rs.getInt("id"),
+                    rs.getInt("id"),
 
 
                     rs.getString("room"),
-                    rs.getDate("checkin"),
-                            rs.getDate("checkout"),
+                    rs.getDate("checkin", Calendar.getInstance()),
+                    rs.getDate("checkout", Calendar.getInstance()),
                     rs.getDouble("rate"),
                     rs.getInt("adults"),
             rs.getInt("kids"));
