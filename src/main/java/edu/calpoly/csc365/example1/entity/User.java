@@ -1,9 +1,15 @@
 package edu.calpoly.csc365.example1.entity;
 
 public class User {
-  private Integer cid;
+  private int cid;
   private String name;
   private String pass;
+
+  public User(int cid, String name, String pass) {
+    this.cid = cid;
+    this.name = name;
+    this.pass = pass;
+  }
 
   public Integer getCid() { return this.cid; }
 
