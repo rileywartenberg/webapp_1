@@ -52,7 +52,7 @@ public class ReservationsDaoImpl implements Dao<Reservations> {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            preparedStatement = this.conn.prepareStatement("SELECT * FROM Reservations WHERE rid=?");
+            preparedStatement = this.conn.prepareStatement("SELECT * FROM Reservations WHERE id=?");
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             Set<Reservations> reservationss = unpackResultSet(resultSet);
