@@ -18,18 +18,20 @@ public class ReservationsDaoCommandImpl implements DaoCommand {
         ResultSet resultSet = null;
         Integer rowsAffected = 0;
         try {
-            conn = daoManager.getConnection();
+            conn = daoManager.getTransConnection();
             preparedStatement = conn.prepareStatement(
-                    "INSERT INTO Reservations (id, cid, room, checkin, checkout,rate,adults,kids) VALUES (?, ?, ?, ?,?,?,?,?)",
+                    "INSERT INTO Reservations (cid, room, checkIn, checkout,rate,adults,kids, ccnum) VALUES (?, ?, ?, ?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, reservations.getId());
-            preparedStatement.setInt(2, reservations.getCid());
-            preparedStatement.setString(3, reservations.getRoom());
-            preparedStatement.setDate(4, reservations.getCheckin());
-            preparedStatement.setDate(5, reservations.getCheckout());
-            preparedStatement.setDouble(6, reservations.getRate());
-            preparedStatement.setInt(7, reservations.getAdults());
-            preparedStatement.setInt(8, reservations.getKids());
+           // preparedStatement.setInt(1, reservations.getId());
+            preparedStatement.setInt(1, reservations.getCid());
+            preparedStatement.setString(2, reservations.getRoom());
+            preparedStatement.setDate(3, reservations.getCheckin());
+            preparedStatement.setDate(4, reservations.getCheckout());
+            preparedStatement.setDouble(5, reservations.getRate());
+            preparedStatement.setInt(6, reservations.getAdults());
+            preparedStatement.setInt(7, reservations.getKids());
+            preparedStatement.setInt(8, reservations.getCcnum());
+           // preparedStatement.setInt(9, reservations.getId());
             rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
                 resultSet = preparedStatement.getGeneratedKeys();

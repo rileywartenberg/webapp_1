@@ -11,6 +11,7 @@ public class Reservations {
     private Double rate;
     private Integer adults;
     private Integer kids;
+    private Integer ccnum;
 
     public Reservations() {
         this.cid = null;
@@ -21,10 +22,11 @@ public class Reservations {
         this.rate = null;
         this.adults = null;
         this.kids = null;
+        this.ccnum = null;
     }
 
     public Reservations(Integer cid, Integer id, String room,
-                        Date checkin, Date checkout, Double rate, Integer adults, Integer kids) {
+                        Date checkin, Date checkout, Double rate, Integer adults, Integer kids, Integer ccnum) {
         this.cid = cid;
         this.id = id;
         this.room = room;
@@ -33,6 +35,7 @@ public class Reservations {
         this.rate = rate;
         this.adults = adults;
         this.kids = kids;
+        this.ccnum = ccnum;
     }
 
     public Integer getCid() {
@@ -101,8 +104,17 @@ public class Reservations {
         this.kids = kids;
     }
 
+    public Integer getCcnum() {
+        return ccnum;
+    }
+
+    public void setCcnum(Integer ccnum) {
+        this.ccnum = ccnum;
+    }
+
     public String toString() {
-        return "cid: " + cid.toString() + "id: " + id.toString() + ", room: " + room + ", checkin: " + checkin
-                + ", checkout: " + checkout + ", rate: " + rate + ", adults: " + adults.toString() + "kids: " + kids.toString();
+        return "cid: " + cid.toString() + ", id: " + id.toString() + ", room: " + room + " , checkin: " + checkin
+                + ", checkout: " + checkout + ", rate: " + rate.toString() + ", adults: " + adults.toString() + ", kids: " + kids.toString()
+                + ", ccnum: " + ccnum.toString();
     }
 }

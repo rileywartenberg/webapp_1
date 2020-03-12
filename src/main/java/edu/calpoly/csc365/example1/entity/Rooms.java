@@ -1,7 +1,7 @@
 package edu.calpoly.csc365.example1.entity;
 
 public class Rooms {
-    private Integer roomId;
+    private String roomId;
     private String roomName;
     private Integer beds;
     private String bedType;
@@ -19,7 +19,7 @@ public class Rooms {
         this.decor = null;
     }
 
-    public Rooms(Integer roomId, String roomName, Integer beds, String bedType, Integer maxOccupancy,
+    public Rooms(String roomId, String roomName, Integer beds, String bedType, Integer maxOccupancy,
                 Double basePrice, String decor) {
         this.roomId = roomId;
         this.roomName = roomName;
@@ -30,11 +30,11 @@ public class Rooms {
         this.decor = decor;
     }
 
-    public Integer getRoomId() {
+    public String getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(Integer roomId) {
+    public void setRoomId(String roomId) {
         this.roomId = roomId;
     }
 

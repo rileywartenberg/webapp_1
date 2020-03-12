@@ -212,7 +212,8 @@ public class ReservationsDaoImpl implements Dao<Reservations> {
                     rs.getDate("checkout", Calendar.getInstance()),
                     rs.getDouble("rate"),
                     rs.getInt("adults"),
-            rs.getInt("kids"));
+            rs.getInt("kids"),
+                    rs.getInt("ccnum"));
             reservationss.add(reservations);
         }
         return reservationss;

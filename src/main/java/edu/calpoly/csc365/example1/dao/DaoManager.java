@@ -2,6 +2,7 @@ package edu.calpoly.csc365.example1.dao;
 
 import edu.calpoly.csc365.example1.entity.Customer;
 import edu.calpoly.csc365.example1.entity.Reservations;
+import edu.calpoly.csc365.example1.entity.Rooms;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -42,7 +43,10 @@ public class DaoManager {
   public Object transaction(DaoCommand command){
     try{
       this.conn.setAutoCommit(false);
+      System.out.println("yes");
       Object returnValue = command.execute(this);
+      System.out.println("no");
+      System.out.println(returnValue);
       this.conn.commit();
       return returnValue;
     } catch(Exception e){
@@ -92,5 +96,9 @@ public class DaoManager {
 
   public UserDao getUserDao() throws SQLException {
     return new UserDaoImpl(this.getConnection());
+  }
+
+  public Dao<Rooms> getRoomsDao() throws SQLException {
+    return new RoomsDaoImpl(this.getConnection());
   }
 }

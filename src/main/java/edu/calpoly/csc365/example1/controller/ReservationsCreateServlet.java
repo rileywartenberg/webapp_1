@@ -1,10 +1,9 @@
 package edu.calpoly.csc365.example1.controller;
 
 import edu.calpoly.csc365.example1.dao.*;
+import edu.calpoly.csc365.example1.entity.*;
 import edu.calpoly.csc365.example1.entity.Reservations;
 import edu.calpoly.csc365.example1.entity.Reservations;
-import edu.calpoly.csc365.example1.entity.Reservations;
-import edu.calpoly.csc365.example1.entity.User;
 import edu.calpoly.csc365.example1.service.AuthenticationService;
 
 import javax.servlet.ServletException;
@@ -27,11 +26,13 @@ public class ReservationsCreateServlet extends HttpServlet {
     private DaoManager dm; //= null;
     private Dao<Reservations> reservationsDao;// = null;
     private Dao<User> userDao;
+    private Dao<Rooms> roomsDao;
 
     public ReservationsCreateServlet() throws Exception {
         dm = DaoManagerFactory.createDaoManager();
         reservationsDao = dm.getReservationsDao();
         userDao = dm.getUserDao();
+        roomsDao = dm.getRoomsDao();
     }
 
     @Override
@@ -46,7 +47,7 @@ public class ReservationsCreateServlet extends HttpServlet {
         String name = loginCookie.getValue();
         User user = userDao.getByName(name);
         Integer cid = user.getCid();
-       // Integer id = Integer.parseInt(request.getParameter("id"));
+      //  Integer id = Integer.parseInt(request.getParameter("id"));
       //  Integer cid = Integer.parseInt(request.getParameter("cid"));
         String room = request.getParameter("room");
         Date checkin = Date.valueOf(request.getParameter("checkin"));
@@ -54,26 +55,33 @@ public class ReservationsCreateServlet extends HttpServlet {
         //Double rate = Double.parseDouble(request.getParameter("rate"));
         Integer adults = Integer.parseInt(request.getParameter("adults"));
         Integer kids = Integer.parseInt(request.getParameter("kids"));
+        Integer ccnum = Integer.parseInt(request.getParameter("ccnum"));
 
-
+        Rooms rooms = ((RoomsDaoImpl)roomsDao).getByRoomName(room);
+        Double rate = rooms.getBasePrice();
+        //Transaction
         Reservations reservations = new Reservations();
         reservations.setCid(cid);
-        //reservations.setId(id);
+       // reservations.setId(id);
         reservations.setRoom(room);
         reservations.setCheckin(checkin);
         reservations.setCheckout(checkout);
-        //reservations.setRate(rate);
+        reservations.setRate(rate);
         reservations.setAdults(adults);
         reservations.setKids(kids);
+        reservations.setCcnum(ccnum);
 
         DaoCommand daoCommand = new ReservationsDaoCommandImpl(reservations);
-        Object result = daoCommand.execute(this.dm);
+        Object result = dm.transaction(daoCommand);
+        System.out.println(result);
+        //Object result = daoCommand.execute(this.dm);
         if (result != null) {
             reservations = (Reservations) result;
         }
         PrintWriter out = response.getWriter();
         out.println(reservations);
         out.close();
+        //response.sendRedirect("home");
         
         
     //    id = this.reservationsDao.insert(reservations);

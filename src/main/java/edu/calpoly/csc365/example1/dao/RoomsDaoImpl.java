@@ -20,6 +20,38 @@ public class RoomsDaoImpl implements Dao<Rooms> {
 
     public Set<Rooms> getAllById(int id) { return null;}
 
+    public Rooms getByRoomName(String room) {
+        Rooms r = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = this.conn.prepareStatement("SELECT * FROM rooms WHERE roomId=?");
+            preparedStatement.setString(1, room);
+            resultSet = preparedStatement.executeQuery();
+            Set<Rooms> rooms = unpackResultSet(resultSet);
+            r = (Rooms) rooms.toArray()[0];
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return r;
+    }
+
+
+
     @Override
     public Rooms getById(int id) {
         Rooms r = null;
@@ -96,7 +128,7 @@ public class RoomsDaoImpl implements Dao<Rooms> {
             preparedStatement.setDouble(4, obj.getMaxOccupancy());
             preparedStatement.setDouble(5, obj.getBasePrice());
             preparedStatement.setString(5, obj.getDecor());
-            preparedStatement.setInt(5, obj.getRoomId());
+            preparedStatement.setString(5, obj.getRoomId());
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -115,7 +147,7 @@ public class RoomsDaoImpl implements Dao<Rooms> {
 
         while (rs.next()) {
             Rooms r = new Rooms(
-                    rs.getInt("roomId"),
+                    rs.getString("roomId"),
                     rs.getString("roomName"),
                     rs.getInt("beds"),
                     rs.getString("bedType"),

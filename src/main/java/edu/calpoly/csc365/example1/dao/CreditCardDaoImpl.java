@@ -26,7 +26,7 @@ public class CreditCardDaoImpl implements Dao<CreditCard> {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     try {
-      preparedStatement = this.conn.prepareStatement("SELECT * FROM CreditCard WHERE card_number = ?");
+      preparedStatement = this.conn.prepareStatement("SELECT * FROM creditCard WHERE ccnum = ?");
       preparedStatement.setInt(1, id);
       resultSet = preparedStatement.executeQuery();
       Set<CreditCard> creditCards = unpackResultSet(resultSet);
@@ -43,7 +43,7 @@ public class CreditCardDaoImpl implements Dao<CreditCard> {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     try {
-      preparedStatement = this.conn.prepareStatement("SELECT * FROM CreditCard");
+      preparedStatement = this.conn.prepareStatement("SELECT * FROM creditCard");
       resultSet = preparedStatement.executeQuery();
       creditCards = unpackResultSet(resultSet);
     } catch (SQLException e) {

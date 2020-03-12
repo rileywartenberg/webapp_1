@@ -19,9 +19,10 @@
     <p><label for="room">room</label><br/><input type="text" name="room" id="room" value="${reservations.room}" size="30"></p>
     <p><label for="checkin">checkin</label><br/><input type="text" name="checkin" id="checkin" value="${reservations.checkin}" size="30"></p>
     <p><label for="checkout">checkout</label><br/><input type="text" name="checkout" id="checkout" value="${reservations.checkout}" size="30"></p>
-    <%-- <p><label for="rate">rate</label><br/><input type="text" name="rate" id="rate" value="" size="30"></p> --%>
-    <p><label for="adults">adults</label><br/><input type="text" name="adults" id="adults" value="" size="30"></p>
-    <p><label for="kids">kids</label><br/><input type="text" name="kids" id="kids" value="" size="30"></p>
+    <%-- <p><label for="rate">rate</label><br/><input type="text" name="rate" id="rate" value="${reservations.rate}" size="30"></p> --%>
+    <p><label for="ccnum">Credit Card Number</label><br/><input type="text" name="ccnum" id="ccnum" value="${reservations.ccnum}" size="30"></p>
+    <p><label for="adults">adults</label><br/><input type="text" name="adults" id="adults" value="${reservations.adults}" size="30"></p>
+    <p><label for="kids">kids</label><br/><input type="text" name="kids" id="kids" value="${reservations.kids}" size="30"></p>
 
     <p><input type="submit">
 </form>
