@@ -65,6 +65,56 @@ public class DaoManager {
     return null;
   }
 
+    public Object transactionUpdate(DaoCommand command){
+        try{
+            this.conn.setAutoCommit(false);
+            System.out.println("yes");
+            Object returnValue = ((ReservationsDaoCommandImpl)command).executeUpdate(this);
+            System.out.println("\no");
+            System.out.println(returnValue);
+            this.conn.commit();
+            return returnValue;
+        } catch(Exception e){
+            try {
+                this.conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                this.conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public Object transactionDelete(DaoCommand command){
+        try{
+            this.conn.setAutoCommit(false);
+            System.out.println("yesss");
+            Object returnValue = ((ReservationsDaoCommandImpl)command).executeDelete(this);
+            System.out.println("nooo");
+            System.out.println("  return");
+            this.conn.commit();
+            return returnValue;
+        } catch(Exception e){
+            try {
+                this.conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                this.conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
   public Object executeAndClose(DaoCommand command){
     try{
       return command.execute(this);

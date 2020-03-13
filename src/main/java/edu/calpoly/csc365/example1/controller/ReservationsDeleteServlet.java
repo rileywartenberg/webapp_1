@@ -1,8 +1,6 @@
 package edu.calpoly.csc365.example1.controller;
 
-import edu.calpoly.csc365.example1.dao.DaoManagerFactory;
-import edu.calpoly.csc365.example1.dao.Dao;
-import edu.calpoly.csc365.example1.dao.DaoManager;
+import edu.calpoly.csc365.example1.dao.*;
 import edu.calpoly.csc365.example1.entity.Reservations;
 
 import javax.servlet.ServletException;
@@ -12,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @WebServlet(name = "ReservationsDeleteServlet", urlPatterns = "/delete_reservations")
 public class ReservationsDeleteServlet extends HttpServlet {
@@ -48,9 +48,26 @@ public class ReservationsDeleteServlet extends HttpServlet {
         reservations.setAdults(adults);
         reservations.setKids(kids);*/
 
+        DaoCommand daoCommand = new ReservationsDaoCommandImpl(reservations);
+        Reservations reservation = reservationsDao.getById(id);
+        Object result = dm.transactionDelete(daoCommand);
+        //System.out.println(result);
+        //Object result = daoCommand.execute(this.dm);
+        if (result != null) {
+            reservations = (Reservations) result;
+        }
 
-        this.reservationsDao.delete(reservations);
-        response.sendRedirect("home");
+
+        // PrintWriter out = response.getWriter();
+        //out.println(reservations);
+        //out.close();
+        Set<Reservations> reservationsSet = new HashSet<>();
+        reservationsSet.add(reservation);
+        request.setAttribute("reservations", reservationsSet);
+        request.setAttribute("message", "New Reservation");
+        request.getRequestDispatcher("display_reservation.jsp").forward(request, response);
+        //this.reservationsDao.delete(reservations);
+        //response.sendRedirect("home");
 
 //        request.setAttribute("reservations", reservations);
   //      request.getRequestDispatcher("reservations_delete.jsp").forward(request, response);

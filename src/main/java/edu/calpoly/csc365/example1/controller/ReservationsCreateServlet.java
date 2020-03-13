@@ -76,7 +76,7 @@ public class ReservationsCreateServlet extends HttpServlet {
 
         DaoCommand daoCommand = new ReservationsDaoCommandImpl(reservations);
         Object result = dm.transaction(daoCommand);
-        System.out.println(result);
+        //System.out.println(result);
         //Object result = daoCommand.execute(this.dm);
         if (result != null) {
             reservations = (Reservations) result;
