@@ -50,22 +50,30 @@ public class ReservationsDeleteServlet extends HttpServlet {
 
         DaoCommand daoCommand = new ReservationsDaoCommandImpl(reservations);
         Reservations reservation = reservationsDao.getById(id);
-        Object result = dm.transactionDelete(daoCommand);
+        String message = dm.transactionDelete(daoCommand);
+        //Object result = dm.transactionDelete(daoCommand);
         //System.out.println(result);
         //Object result = daoCommand.execute(this.dm);
-        if (result != null) {
+        /*if (result != null) {
             reservations = (Reservations) result;
         }
-
+*/
 
         // PrintWriter out = response.getWriter();
         //out.println(reservations);
         //out.close();
-        Set<Reservations> reservationsSet = new HashSet<>();
-        reservationsSet.add(reservation);
-        request.setAttribute("reservations", reservationsSet);
-        request.setAttribute("message", "New Reservation");
-        request.getRequestDispatcher("display_reservation.jsp").forward(request, response);
+        if(!message.equals("runError") && !message.equals("0") && !message.equals("1"))
+        {
+            request.setAttribute("message", message);
+            request.getRequestDispatcher("reservations_delete.jsp").forward(request, response);
+        }
+        else {
+            Set<Reservations> reservationsSet = new HashSet<>();
+            reservationsSet.add(reservation);
+            request.setAttribute("reservations", reservationsSet);
+            request.setAttribute("message", "New Reservation");
+            request.getRequestDispatcher("display_reservation.jsp").forward(request, response);
+        }
         //this.reservationsDao.delete(reservations);
         //response.sendRedirect("home");
 

@@ -75,20 +75,28 @@ public class ReservationsCreateServlet extends HttpServlet {
         reservations.setCcnum(ccnum);
 
         DaoCommand daoCommand = new ReservationsDaoCommandImpl(reservations);
-        Object result = dm.transaction(daoCommand);
+        //Object result = dm.transaction(daoCommand);
+        String message = dm.transaction(daoCommand);
         //System.out.println(result);
         //Object result = daoCommand.execute(this.dm);
-        if (result != null) {
+      /*  if (result != null) {
             reservations = (Reservations) result;
-        }
+        }*/
        // PrintWriter out = response.getWriter();
         //out.println(reservations);
         //out.close();
-        Set<Reservations> reservationsSet = new HashSet<>();
-        reservationsSet.add(reservations);
-        request.setAttribute("reservations", reservationsSet);
-        request.setAttribute("message", "New Reservation");
-        request.getRequestDispatcher("display_reservation.jsp").forward(request, response);
+        if(!message.equals("runError") && !message.equals("0") && !message.equals("1"))
+        {
+            request.setAttribute("message", message);
+            request.getRequestDispatcher("reservations_create.jsp").forward(request, response);
+        }
+        else {
+            Set<Reservations> reservationsSet = new HashSet<>();
+            reservationsSet.add(reservations);
+            request.setAttribute("reservations", reservationsSet);
+            request.setAttribute("message", "New Reservation");
+            request.getRequestDispatcher("display_reservation.jsp").forward(request, response);
+        }
     //    response.sendRedirect("home");
         
         

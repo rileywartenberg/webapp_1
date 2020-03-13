@@ -13,6 +13,7 @@
 <body>
 <div style="width:30%;height:50%;margin:10% auto;padding: 10px;">
 <form method="post" action="delete_reservations">
+<p>${message}</p>
     <p><label for="id">id</label><br/><input type="text" name="id" id="id" value="${reservations.id}" size="30"></p>
 
     <p><input type="submit">
