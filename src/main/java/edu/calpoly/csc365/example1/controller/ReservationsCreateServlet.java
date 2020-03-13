@@ -18,7 +18,10 @@ import java.io.PrintWriter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 
 @WebServlet(name = "ReservationsCreateServlet", urlPatterns = "/create_reservations")
@@ -78,10 +81,15 @@ public class ReservationsCreateServlet extends HttpServlet {
         if (result != null) {
             reservations = (Reservations) result;
         }
-        PrintWriter out = response.getWriter();
-        out.println(reservations);
-        out.close();
-        //response.sendRedirect("home");
+       // PrintWriter out = response.getWriter();
+        //out.println(reservations);
+        //out.close();
+        Set<Reservations> reservationsSet = new HashSet<>();
+        reservationsSet.add(reservations);
+        request.setAttribute("reservations", reservationsSet);
+        request.setAttribute("message", "New Reservation");
+        request.getRequestDispatcher("display_reservation.jsp").forward(request, response);
+    //    response.sendRedirect("home");
         
         
     //    id = this.reservationsDao.insert(reservations);
