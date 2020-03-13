@@ -148,6 +148,10 @@ public class DaoManager {
     return new UserDaoImpl(this.getConnection());
   }
 
+    public AdminDao getAdminDao() throws SQLException {
+        return new AdminDaoImpl(this.getConnection());
+    }
+
   public Dao<Rooms> getRoomsDao() throws SQLException {
     return new RoomsDaoImpl(this.getConnection());
   }

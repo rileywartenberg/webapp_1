@@ -30,6 +30,7 @@ public class UserDaoImpl implements UserDao {
       preparedStatement.setString(1, name);
       preparedStatement.setString(2, pass);
       resultSet = preparedStatement.executeQuery();
+      System.out.println(name + " yes  " + pass);
       if (resultSet != null && resultSet.first()) authenticated = true;
 
     } catch (SQLException e) {
