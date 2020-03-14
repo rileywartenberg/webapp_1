@@ -19,6 +19,7 @@
     <p><input type="submit">
 
 </form>
+    <p><a href="./home">home</a></p>
 </div>
 </body>
 </html>
