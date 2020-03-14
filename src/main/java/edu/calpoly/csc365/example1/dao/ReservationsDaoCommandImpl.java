@@ -21,12 +21,13 @@ public class ReservationsDaoCommandImpl implements DaoCommand {
         ResultSet resultSet = null;
         String message = null;
         Integer rowsAffected = 0;
+
         try {
             conn = daoManager.getTransConnection();
             preparedStatement = conn.prepareStatement(
-                    "INSERT INTO Reservations (cid, room, checkIn, checkout,rate,adults,kids, ccnum) VALUES (?, ?, ?, ?,?,?,?,?)",
+                  "INSERT INTO Reservations (cid, room, checkIn, checkout, rate, adults, kids, ccnum) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
-           // preparedStatement.setInt(1, reservations.getId());
             preparedStatement.setInt(1, reservations.getCid());
             preparedStatement.setString(2, reservations.getRoom());
             preparedStatement.setDate(3, reservations.getCheckin());
@@ -35,7 +36,6 @@ public class ReservationsDaoCommandImpl implements DaoCommand {
             preparedStatement.setInt(6, reservations.getAdults());
             preparedStatement.setInt(7, reservations.getKids());
             preparedStatement.setInt(8, reservations.getCcnum());
-           // preparedStatement.setInt(9, reservations.getId());
             rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
                 message = "0";
@@ -66,10 +66,12 @@ public class ReservationsDaoCommandImpl implements DaoCommand {
         ResultSet resultSet = null;
         String message = null;
         Integer rowsAffected = 0;
+
         try {
             conn = daoManager.getTransConnection();
             preparedStatement = conn.prepareStatement(
-                    "UPDATE Reservations SET cid=?, room=?, checkin=?, checkout=?, rate=?, adults=?, kids=?, ccnum=? WHERE id=?");
+                    "UPDATE Reservations SET room=?, checkin=?, checkout=?, rate=?," +
+                          "adults=?, kids=?, ccnum=? WHERE id=?");
             preparedStatement.setInt(1, reservations.getCid());
             preparedStatement.setString(2, reservations.getRoom());
             preparedStatement.setDate(3, reservations.getCheckin());
@@ -79,18 +81,11 @@ public class ReservationsDaoCommandImpl implements DaoCommand {
             preparedStatement.setInt(7, reservations.getKids());
             preparedStatement.setInt(8, reservations.getCcnum());
             preparedStatement.setInt(9, reservations.getId());
-            System.out.println("what");
             rowsAffected = preparedStatement.executeUpdate();
-            System.out.println("idk");
             if(rowsAffected > 0)
                 message = "0";
             else
                 message = "1";
-        /*    if (rowsAffected > 0) {
-                resultSet = preparedStatement.getGeneratedKeys();
-                if(resultSet.next())
-                    reservations.setId(resultSet.getInt(1));
-            }*/
         } catch (SQLException e) {
             message = "runError";
             if(e.getSQLState().equals("12345"))
@@ -111,18 +106,11 @@ public class ReservationsDaoCommandImpl implements DaoCommand {
         ResultSet resultSet = null;
         Integer rowsAffected = 0;
         String message = null;
+
         try {
             conn = daoManager.getTransConnection();
             preparedStatement = conn.prepareStatement(
                     "DELETE FROM Reservations WHERE id = ?");
-           /* preparedStatement.setInt(1, reservations.getCid());
-            preparedStatement.setString(2, reservations.getRoom());
-            preparedStatement.setDate(3, reservations.getCheckin());
-            preparedStatement.setDate(4, reservations.getCheckout());
-            preparedStatement.setDouble(5, reservations.getRate());
-            preparedStatement.setInt(6, reservations.getAdults());
-            preparedStatement.setInt(7, reservations.getKids());
-            preparedStatement.setInt(8, reservations.getCcnum());*/
             preparedStatement.setInt(1, reservations.getId());
             System.out.println("wh");
             rowsAffected = preparedStatement.executeUpdate();
@@ -131,11 +119,6 @@ public class ReservationsDaoCommandImpl implements DaoCommand {
                 message = "0";
             else
                 message = "1";
-        /*    if (rowsAffected > 0) {
-                resultSet = preparedStatement.getGeneratedKeys();
-                if(resultSet.next())
-                    reservations.setId(resultSet.getInt(1));
-            }*/
         } catch (SQLException e) {
             message = "runError";
             if(e.getSQLState().equals("12345"))

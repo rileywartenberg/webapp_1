@@ -33,6 +33,7 @@ public class ReservationsEditServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String message;
         Cookie loginCookie = AuthenticationService.getLoginCookie(request);
         response.addCookie(loginCookie);
         String name = loginCookie.getValue();
@@ -40,24 +41,26 @@ public class ReservationsEditServlet extends HttpServlet {
         Integer cid = user.getCid();
 
         Integer id = Integer.parseInt(request.getParameter("id"));
-        //Integer cid = Integer.parseInt(request.getParameter("cid"));
         String room = request.getParameter("room");
         Date checkin = Date.valueOf(request.getParameter("checkin"));
-        System.out.println(checkin);
-
         Date checkout = Date.valueOf(request.getParameter("checkout"));
-        System.out.println(checkout);
-
         Integer ccnum = Integer.parseInt(request.getParameter("ccnum"));
-        //Double rate = Double.parseDouble(request.getParameter("rate"));
         Integer adults = Integer.parseInt(request.getParameter("adults"));
         Integer kids = Integer.parseInt(request.getParameter("kids"));
-
         Rooms rooms = ((RoomsDaoImpl)roomsDao).getByRoomName(room);
         Double rate = rooms.getBasePrice();
 
-        Reservations reservations = new Reservations();
-        reservations.setCid(cid);
+        System.out.println(checkin);
+        System.out.println(checkout);
+
+        Reservations reservations = reservationsDao.getById(id);
+
+        if (reservations.getCid() != cid) {
+            request.setAttribute("message", "Unauthorized command");
+            request.getRequestDispatcher("reservations_edit.jsp").forward(request, response);
+            return;
+        }
+
         reservations.setId(id);
         reservations.setRoom(room);
         reservations.setCheckin(checkin);
@@ -68,16 +71,8 @@ public class ReservationsEditServlet extends HttpServlet {
         reservations.setCcnum(ccnum);
 
         DaoCommand daoCommand = new ReservationsDaoCommandImpl(reservations);
-        String message = dm.transactionUpdate(daoCommand);
-        //Object result = dm.transactionUpdate(daoCommand);
-        //System.out.println(result);
-        //Object result = daoCommand.execute(this.dm);
-       /* if (result != null) {
-            reservations = (Reservations) result;
-        }*/
-        // PrintWriter out = response.getWriter();
-        //out.println(reservations);
-        //out.close();
+        message = dm.transactionUpdate(daoCommand);
+
         if(!message.equals("runError") && !message.equals("0") && !message.equals("1"))
         {
             request.setAttribute("message", message);
@@ -90,13 +85,6 @@ public class ReservationsEditServlet extends HttpServlet {
             request.setAttribute("message", "New Reservation");
             request.getRequestDispatcher("display_reservation.jsp").forward(request, response);
         }
-        //this.reservationsDao.update(reservations);
-        //response.sendRedirect("home");
-
-//        request.setAttribute("reservations", reservations);
-        //      request.getRequestDispatcher("reservations_edit.jsp").forward(request, response);
-        //response.sendRedirect("home");
-
     }
 
     @Override
