@@ -20,7 +20,6 @@
     </style>
 </head>
 <body>
-Message:
 <p>${message}</p>
 <table>
     <thead>Reports</thead>

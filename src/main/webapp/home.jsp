@@ -33,7 +33,8 @@
     <li><a href="./delete_reservations">Cancel a reservation</a></li>
     <li><a href="./edit_reservations">Change a reservation</a></li>
     <li><a href="./logout">logout</a></li>
-    <li><a href="./availability_reservations">room_availability</a></li>
+    <li><a href="./availability_reservations">room availability by day</a></li>
+        <li><a href="./search_availability">Search Availabilities</a></li>
 
     </ul>
 <p>${message}</p>
