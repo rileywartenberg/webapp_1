@@ -35,7 +35,7 @@ public class ReportServlet extends HttpServlet {
             Set<Report> reports = reportDao.getAll();
             request.setAttribute("reports", reports);
             request.setAttribute("message", "Hello " + loginCookie.getValue());
-            request.getRequestDispatcher("reports.jsp").forward(request, response);
+            request.getRequestDispatcher("report.jsp").forward(request, response);
         }
     }
 }

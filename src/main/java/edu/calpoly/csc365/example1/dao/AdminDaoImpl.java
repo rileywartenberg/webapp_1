@@ -2,11 +2,9 @@ package edu.calpoly.csc365.example1.dao;
 
 import edu.calpoly.csc365.example1.entity.Customer;
 import edu.calpoly.csc365.example1.entity.Admin;
+import edu.calpoly.csc365.example1.entity.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -66,6 +64,12 @@ public class AdminDaoImpl implements AdminDao {
             }
         }
         return user;
+    }
+
+    @Override
+    public Set<Admin> getByDate(Date date)
+    {
+        return null;
     }
 
     @Override

@@ -3,11 +3,9 @@ package edu.calpoly.csc365.example1.dao;
 import edu.calpoly.csc365.example1.entity.Report;
 import edu.calpoly.csc365.example1.entity.Report;
 import edu.calpoly.csc365.example1.entity.Reservations;
+import edu.calpoly.csc365.example1.entity.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -213,6 +211,7 @@ public class ReportDaoImpl implements ReportDao {
         return user;
     }
 
+
     @Override
     public Report getById(int id) {
         return null;
@@ -223,6 +222,11 @@ public class ReportDaoImpl implements ReportDao {
         return null;
     }
 
+    @Override
+    public Set<Report> getByDate(Date date)
+    {
+        return null;
+    }
 
     public Integer insert(Report obj){return 1;}
  /*   @Override
