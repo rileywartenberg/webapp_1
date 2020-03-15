@@ -22,18 +22,15 @@
 <body>
 Message:
 <p>${message}</p>
-<table>
-    <thead>Customers</thead>
-    <tr><th>id</th><th>name</th><th></th></tr>
-    <c:forEach items="${customers}" var="customer">
-        <tr>
-            <td>${customer.id}</td>
-            <td>${customer.lastName}</td>
-            <td><a data-id="${customer.id}" href="edit_customer?id=${customer.id}">Edit</a></td>
-        </tr>
-    </c:forEach>
-</table>
-<p><a href="create_customer">Add</a></p>
+
+<form method="post" action="availability_reservations">
+
+    <p><label for="day">Date</label><br/><input type="text" name="day" id="day" size="30"></p>
+    <p><input type="submit">
+</form>
+
 <p><a href="./home">home</a></p>
+
+
 </body>
 </html>

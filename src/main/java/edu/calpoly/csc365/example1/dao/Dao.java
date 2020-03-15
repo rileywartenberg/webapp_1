@@ -1,5 +1,6 @@
 package edu.calpoly.csc365.example1.dao;
 
+import java.sql.Date;
 import java.util.Set;
 
 public interface Dao<T> {
@@ -10,5 +11,6 @@ public interface Dao<T> {
   Integer delete(T obj);
   T getByName(String name);
   Set<T> getAllById(int id);
+  Set<T> getByDate(Date date);
 
 }

@@ -1,5 +1,6 @@
 package edu.calpoly.csc365.example1.dao;
 
+import edu.calpoly.csc365.example1.entity.CreditCard;
 import edu.calpoly.csc365.example1.entity.Customer;
 import edu.calpoly.csc365.example1.entity.Reservations;
 import edu.calpoly.csc365.example1.entity.Rooms;
@@ -50,7 +51,11 @@ public class RoomsDaoImpl implements Dao<Rooms> {
         return r;
     }
 
-
+    @Override
+    public Set<Rooms> getByDate(Date date)
+    {
+        return null;
+    }
 
     @Override
     public Rooms getById(int id) {

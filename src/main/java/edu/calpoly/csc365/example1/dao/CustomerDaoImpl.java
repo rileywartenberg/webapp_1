@@ -1,5 +1,6 @@
 package edu.calpoly.csc365.example1.dao;
 
+import edu.calpoly.csc365.example1.entity.CreditCard;
 import edu.calpoly.csc365.example1.entity.Customer;
 import edu.calpoly.csc365.example1.entity.Reservations;
 
@@ -18,6 +19,12 @@ public class CustomerDaoImpl implements Dao<Customer> {
 
     public Set<Customer> getAllById(int id) { return null;}
 
+
+  @Override
+  public Set<Customer> getByDate(Date date)
+  {
+    return null;
+  }
     @Override
   public Customer getById(int id) {
     Customer customer = null;

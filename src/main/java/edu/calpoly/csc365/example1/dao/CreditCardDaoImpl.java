@@ -21,6 +21,11 @@ public class CreditCardDaoImpl implements Dao<CreditCard> {
   public Set<CreditCard> getAllById(int id) { return null;}
 
   @Override
+  public Set<CreditCard> getByDate(Date date)
+  {
+    return null;
+  }
+  @Override
   public CreditCard getById(int id) {
     CreditCard creditCard = null;
     PreparedStatement preparedStatement = null;

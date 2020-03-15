@@ -47,6 +47,11 @@ public class ReservationsDaoImpl implements Dao<Reservations> {
     }
 
     @Override
+    public Set<Reservations> getByDate(Date date)
+    {
+        return null;
+    }
+    @Override
     public Reservations getById(int id) {
         Reservations reservations = null;
         PreparedStatement preparedStatement = null;

@@ -34,6 +34,7 @@
     <li><a href="./delete_reservations">cancel a reservations</a></li>
     <li><a href="./edit_reservations">change a reservations</a></li>
     <li><a href="./logout">logout</a></li>
+    <li><a href="./availability_reservations">room_availability</a></li>
     </ul>
 <p>${message}</p>
 <table>

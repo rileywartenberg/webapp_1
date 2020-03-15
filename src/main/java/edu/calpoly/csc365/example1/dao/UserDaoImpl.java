@@ -1,12 +1,10 @@
 package edu.calpoly.csc365.example1.dao;
 
+import edu.calpoly.csc365.example1.entity.CreditCard;
 import edu.calpoly.csc365.example1.entity.Customer;
 import edu.calpoly.csc365.example1.entity.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -66,7 +64,11 @@ public class UserDaoImpl implements UserDao {
     }
     return user;
   }
-
+    @Override
+    public Set<User> getByDate(Date date)
+    {
+        return null;
+    }
   @Override
   public User getById(int id) {
     return null;
