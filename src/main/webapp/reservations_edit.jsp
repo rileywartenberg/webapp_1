@@ -13,7 +13,7 @@
 <body>
 <div style="width:30%;height:50%;margin:10% auto;padding: 10px;">
 <form method="post" action="edit_reservations">
-
+<p>${message}</p>
     <%-- <p><label for="id">Customer Id</label><br/><input type="text" name="cid" id="id" value="" size="30"></p> --%>
     <p><label for="id">id</label><br/><input type="text" name="id" id="id" value="${reservations.id}" size="30"></p>
     <p><label for="room">room</label><br/><input type="text" name="room" id="room" value="${reservations.room}" size="30"></p>

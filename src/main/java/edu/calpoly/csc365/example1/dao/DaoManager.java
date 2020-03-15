@@ -41,11 +41,11 @@ public class DaoManager {
     catch(SQLException e) { throw e; }
   }
 
-  public Object transaction(DaoCommand command){
+  public String transaction(DaoCommand command){
     try{
       this.conn.setAutoCommit(false);
       System.out.println("yes");
-      Object returnValue = command.execute(this);
+      String returnValue = command.execute(this);
       System.out.println("no");
       System.out.println(returnValue);
       this.conn.commit();
@@ -66,14 +66,15 @@ public class DaoManager {
     return null;
   }
 
-    public Object transactionUpdate(DaoCommand command){
+    public String transactionUpdate(DaoCommand command){
         try{
             this.conn.setAutoCommit(false);
             System.out.println("yes");
-            Object returnValue = ((ReservationsDaoCommandImpl)command).executeUpdate(this);
-            System.out.println("\no");
+            String returnValue = ((ReservationsDaoCommandImpl)command).executeUpdate(this);
+            System.out.println("no");
             System.out.println(returnValue);
             this.conn.commit();
+            System.out.println("commit");
             return returnValue;
         } catch(Exception e){
             try {
@@ -91,11 +92,11 @@ public class DaoManager {
         return null;
     }
 
-    public Object transactionDelete(DaoCommand command){
+    public String transactionDelete(DaoCommand command){
         try{
             this.conn.setAutoCommit(false);
             System.out.println("yesss");
-            Object returnValue = ((ReservationsDaoCommandImpl)command).executeDelete(this);
+            String returnValue = ((ReservationsDaoCommandImpl)command).executeDelete(this);
             System.out.println("nooo");
             System.out.println("  return");
             this.conn.commit();
@@ -131,8 +132,8 @@ public class DaoManager {
   public Object transactionAndClose(final DaoCommand command){
     return executeAndClose(new DaoCommand() {
       @Override
-      public Object execute(DaoManager daoManager) {
-        return daoManager.transaction(command);
+      public String execute(DaoManager daoManager) {
+        return (String)daoManager.transaction(command);
       }
     });
   }
@@ -148,6 +149,10 @@ public class DaoManager {
   public UserDao getUserDao() throws SQLException {
     return new UserDaoImpl(this.getConnection());
   }
+
+    public AdminDao getAdminDao() throws SQLException {
+        return new AdminDaoImpl(this.getConnection());
+    }
 
   public Dao<Rooms> getRoomsDao() throws SQLException {
     return new RoomsDaoImpl(this.getConnection());

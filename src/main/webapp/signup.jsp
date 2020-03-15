@@ -22,7 +22,8 @@
     <p><label for="pass">Password</label><input type="password" name="pass" id="pass" value="" size="20"></p>
     <p><input type="submit"></p>
 </form>
-    <p><a href="./login">login</a></p>
+    <p><a href="./login">user login</a></p>
+    <p><a href="./admin">admin login</a></p>
 </div>
 </body>
 </html>

@@ -1,22 +1,22 @@
 package edu.calpoly.csc365.example1.service;
 
-import edu.calpoly.csc365.example1.dao.UserDao;
+import edu.calpoly.csc365.example1.dao.AdminDao;
 import edu.calpoly.csc365.example1.dao.UserDaoImpl;
 import edu.calpoly.csc365.example1.entity.Admin;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
-public class AuthenticationService {
-    UserDao userDao = null;
+public class AuthenticationAdmin {
+    AdminDao adminDao = null;
 
-    public AuthenticationService(UserDao userDao) {
-        this.userDao = userDao;
+    public AuthenticationAdmin(AdminDao adminDao) {
+        this.adminDao = adminDao;
     }
 
     public Boolean authenticate(String name, String pass) {
         Boolean authenticated = false;
-        authenticated = userDao.authenticate(name, pass);
+        authenticated = adminDao.authenticate(name, pass);
         return authenticated;
     }
 

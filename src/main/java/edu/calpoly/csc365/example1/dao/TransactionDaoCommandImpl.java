@@ -12,7 +12,7 @@ public class TransactionDaoCommandImpl implements DaoCommand {
     }
 
     @Override
-    public Object execute(DaoManager daoManager) {
+    public String execute(DaoManager daoManager) {
         Connection conn = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -38,6 +38,6 @@ public class TransactionDaoCommandImpl implements DaoCommand {
             e.printStackTrace();
             throw new RuntimeException("Error occurred during SQL execution!");
         }
-        return transaction;
+        return "idk";
     }
 }
