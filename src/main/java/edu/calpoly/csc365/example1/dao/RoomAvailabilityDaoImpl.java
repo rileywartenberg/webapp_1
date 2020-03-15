@@ -6,6 +6,8 @@ import edu.calpoly.csc365.example1.entity.Reservations;
 import edu.calpoly.csc365.example1.entity.Rooms;
 
 import java.sql.*;
+
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -84,6 +86,7 @@ public class RoomAvailabilityDaoImpl implements Dao<Availability> {
     }
 
     public Set<Availability> getByDate(Date date) {
+        Calendar cal;
         Set<Availability> availabilities= null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -143,7 +146,7 @@ public class RoomAvailabilityDaoImpl implements Dao<Availability> {
         "ELSE \"Available\"\n" +
         "END as Availability\n" +
         "FROM \n" +
-        "Reservations as re JOIN rooms as r \n" +
+        "Reservations as re JOIN rooms as r ON re.room = r.roomID \n" +
         "WHERE (? >=re.checkIn AND ? < re.checkout)\n" +
         ")c \n" +
         "ON c.rId = a.rId;\n" +
@@ -169,6 +172,75 @@ public class RoomAvailabilityDaoImpl implements Dao<Availability> {
 
             resultSet = preparedStatement.executeQuery();
             availabilities = unpackResultSet(resultSet);
+
+            for(int i = 0; i < availabilities.size(); i++){
+                int add = 0;
+                Set<Availability> agets;
+                Availability atest = ((Availability)(availabilities.toArray()[i]));
+                boolean test = atest.getAvailable().equals("Not Available");
+                while(test)
+                {
+
+                    preparedStatement = this.conn.prepareStatement("SELECT a.roomName as roomName, \n" +
+                            "IFNULL(b.Availability, \"Available\") as Availability, DATE_ADD(?, INTERVAL ? DAY) as day\n" +
+                            "FROM\n" +
+                            "(\n" +
+                            "SELECT \n" +
+                            "r.roomId as rId, \n" +
+                            "r.roomName as roomName\n" +
+                            "FROM rooms as r \n" +
+                            "WHERE r.roomName = ?\n" +
+                            ")a\n" +
+                            "LEFT JOIN\n" +
+                            "(\n" +
+                            "SELECT DISTINCT re.room as rId, \n" +
+                            "CASE WHEN (DATE_ADD(?, INTERVAL ? DAY)\n" +
+                            ">=re.checkIn AND \n" +
+                            "DATE_ADD(?, INTERVAL ? DAY) < re.checkout)\n" +
+                            "THEN \"Not Available\"\n" +
+                            "ELSE \"Available\"\n" +
+                            "END as Availability\n" +
+                            "FROM \n" +
+                            "Reservations as re JOIN rooms as r ON re.room = r.roomID \n" +
+                            "WHERE (DATE_ADD(?, INTERVAL ? DAY) >=re.checkIn AND \n" +
+                            "DATE_ADD(?, INTERVAL ? DAY) < re.checkout)\n" +
+                            "AND r.roomName = ?\n" +
+                            ")b\n" +
+                            "ON a.rId = b.rId;");
+
+                    preparedStatement.setDate(1, date);
+                    preparedStatement.setInt(2, add);
+                    preparedStatement.setString(3, atest.getRoomName());
+                    preparedStatement.setDate(4, date);
+                    preparedStatement.setInt(5, add);
+                    preparedStatement.setDate(6, date);
+                    preparedStatement.setInt(7, add);
+                    preparedStatement.setDate(8, date);
+                    preparedStatement.setInt(9, add);
+                    preparedStatement.setDate(10, date);
+                    preparedStatement.setInt(11, add);
+                    preparedStatement.setString(12, atest.getRoomName());
+
+                    resultSet = preparedStatement.executeQuery();
+                    System.out.println("hi");
+                    resultSet.next();
+                    test = resultSet.getString("Availability").equals("Not Available");
+                    System.out.println(resultSet.getString("Availability"));
+                    add += 1;
+                }
+                if (add == 0)
+                {
+                    atest.setNextDate(date);
+                }
+
+                else{
+                    System.out.println(add);
+                    System.out.println(resultSet.getDate("day", Calendar.getInstance()));
+                    atest.setNextDate(resultSet.getDate("day", Calendar.getInstance()));
+                }
+
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
