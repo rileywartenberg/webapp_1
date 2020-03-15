@@ -43,7 +43,7 @@ public class ReservationsAvailabilityServlet extends HttpServlet {
         Set<Availability> availabilities = availabilityDao.getByDate(date);
         System.out.println(availabilities);
         request.setAttribute("availabilities", availabilities);
-        request.setAttribute(("message"), "Here are the available rooms for the day of" + date);
+        request.setAttribute(("message"), "Here are the available rooms for the day of " + date);
         request.getRequestDispatcher("display_availabilities.jsp").forward(request, response);
     }
 }
