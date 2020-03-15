@@ -86,10 +86,5 @@ public class ReservationsCreateServlet extends HttpServlet {
             request.setAttribute("message", "New Reservation");
             request.getRequestDispatcher("display_reservation.jsp").forward(request, response);
         }
-    //    response.sendRedirect("home");
-        
-        
-    //    id = this.reservationsDao.insert(reservations);
-      //  response.sendRedirect("edit_reservations?id=" + id.toString());
     }
 }

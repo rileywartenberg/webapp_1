@@ -23,7 +23,6 @@ public class ReservationsAvailabilityServlet extends HttpServlet {
     private Dao<Rooms> roomsDao;
     private Date day;
 
-
     public ReservationsAvailabilityServlet() throws Exception {
         dm = DaoManagerFactory.createDaoManager();
         availabilityDao = dm.getAvailabilityDao();
@@ -46,5 +45,7 @@ public class ReservationsAvailabilityServlet extends HttpServlet {
         request.setAttribute(("message"), "Here are the available rooms for the day of " + date);
         request.getRequestDispatcher("display_availabilities.jsp").forward(request, response);
     }
+
+
 }
 
