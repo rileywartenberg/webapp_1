@@ -54,7 +54,6 @@ public class Reservations {
         this.id = id;
     }
 
-
     public String getRoom() {
         return room;
     }
