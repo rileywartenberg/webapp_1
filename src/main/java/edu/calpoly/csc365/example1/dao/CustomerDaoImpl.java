@@ -90,12 +90,13 @@ public class CustomerDaoImpl implements Dao<Customer> {
     ResultSet resultSet = null;
     try {
       preparedStatement = this.conn.prepareStatement(
-        "INSERT INTO customer (ssn, lastName, address, phoneNumber) VALUES (?, ?, ?, ?)",
+        "INSERT INTO customer (ssn, lastName, firstName, address, phoneNumber) VALUES (?, ?, ?, ?, ?)",
         Statement.RETURN_GENERATED_KEYS);
       preparedStatement.setString(1, obj.getSsn());
       preparedStatement.setString(2, obj.getLastName());
-      preparedStatement.setString(3, obj.getAddress());
-      preparedStatement.setString(4, obj.getPhone());
+      preparedStatement.setString(3, obj.getFirstName());
+      preparedStatement.setString(4, obj.getAddress());
+      preparedStatement.setString(5, obj.getPhone());
       int numRows = preparedStatement.executeUpdate();
       if (numRows == 1) {
         // get generated id
@@ -129,12 +130,13 @@ public class CustomerDaoImpl implements Dao<Customer> {
     PreparedStatement preparedStatement = null;
     try {
       preparedStatement = this.conn.prepareStatement(
-        "UPDATE customer SET ssn=?, lastName=?, address=?, phoneNumber=? WHERE cid=?");
+        "UPDATE customer SET ssn=?, lastName=?, firstName=?, address=?, phoneNumber=? WHERE cid=?");
       preparedStatement.setString(1, obj.getSsn());
       preparedStatement.setString(2, obj.getLastName());
-      preparedStatement.setString(3, obj.getAddress());
-      preparedStatement.setString(4, obj.getPhone());
-      preparedStatement.setInt(5, obj.getId());
+      preparedStatement.setString(3, obj.getFirstName());
+      preparedStatement.setString(4, obj.getAddress());
+      preparedStatement.setString(5, obj.getPhone());
+      preparedStatement.setInt(6, obj.getId());
       preparedStatement.execute();
     } catch (SQLException e) {
       e.printStackTrace();
