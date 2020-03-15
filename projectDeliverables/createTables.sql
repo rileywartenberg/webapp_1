@@ -66,3 +66,9 @@ CREATE TABLE `Users` (
   `cid` int NOT NULL,
   PRIMARY KEY (`name`)
 )
+
+CREATE TABLE `Admin` (
+  `name` varchar(50) NOT NULL,
+  `pass` varchar(50) NOT NULL
+  PRIMARY KEY (`name`)
+)

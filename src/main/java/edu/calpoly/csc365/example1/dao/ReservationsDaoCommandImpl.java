@@ -72,15 +72,15 @@ public class ReservationsDaoCommandImpl implements DaoCommand {
             preparedStatement = conn.prepareStatement(
                     "UPDATE Reservations SET room=?, checkin=?, checkout=?, rate=?," +
                           "adults=?, kids=?, ccnum=? WHERE id=?");
-            preparedStatement.setInt(1, reservations.getCid());
-            preparedStatement.setString(2, reservations.getRoom());
-            preparedStatement.setDate(3, reservations.getCheckin());
-            preparedStatement.setDate(4, reservations.getCheckout());
-            preparedStatement.setDouble(5, reservations.getRate());
-            preparedStatement.setInt(6, reservations.getAdults());
-            preparedStatement.setInt(7, reservations.getKids());
-            preparedStatement.setInt(8, reservations.getCcnum());
-            preparedStatement.setInt(9, reservations.getId());
+          //  preparedStatement.setInt(1, reservations.getCid());
+            preparedStatement.setString(1, reservations.getRoom());
+            preparedStatement.setDate(2, reservations.getCheckin());
+            preparedStatement.setDate(3, reservations.getCheckout());
+            preparedStatement.setDouble(4, reservations.getRate());
+            preparedStatement.setInt(5, reservations.getAdults());
+            preparedStatement.setInt(6, reservations.getKids());
+            preparedStatement.setInt(7, reservations.getCcnum());
+            preparedStatement.setInt(8, reservations.getId());
             rowsAffected = preparedStatement.executeUpdate();
             if(rowsAffected > 0)
                 message = "0";

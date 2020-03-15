@@ -38,6 +38,7 @@
     <c:forEach items="${availabilities}" var="availability">
         <tr>
             <td>${availability.roomName}</td>
+            <td>${availability.roomCode}</td>
             <td>${availability.bedType}</td>
             <td>${availability.beds}</td>
             <td>${availability.maxOccupancy}</td>

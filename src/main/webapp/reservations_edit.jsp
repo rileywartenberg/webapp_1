@@ -16,7 +16,7 @@
 <p>${message}</p>
     <%-- <p><label for="id">Customer Id</label><br/><input type="text" name="cid" id="id" value="" size="30"></p> --%>
     <p><label for="id">id</label><br/><input type="text" name="id" id="id" value="${reservations.id}" size="30"></p>
-    <p><label for="room">room</label><br/><input type="text" name="room" id="room" value="${reservations.room}" size="30"></p>
+    <p><label for="room">Room Code</label><br/><input type="text" name="room" id="room" value="${reservations.room}" size="30"></p>
     <p><label for="checkin">checkin</label><br/><input type="text" name="checkin" id="checkin" value="${reservations.checkin}" size="30"></p>
     <p><label for="checkout">checkout</label><br/><input type="text" name="checkout" id="checkout" value="${reservations.checkout}" size="30"></p>
     <p><label for="ccnum">Credit Card Number</label><br/><input type="text" name="ccnum" id="ccnum" value="" size="30"></p>
