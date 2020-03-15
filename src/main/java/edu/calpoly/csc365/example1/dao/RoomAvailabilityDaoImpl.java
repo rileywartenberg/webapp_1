@@ -117,18 +117,20 @@ public class RoomAvailabilityDaoImpl implements Dao<Availability> {
         "FROM\n" +
         "(\n" +
         "SELECT re.room as rid, r.roomName as roomName, \n" +
-        "CASE WHEN (DATE_SUB(?, INTERVAL 180 DAY) <= re.checkIn\n" +
-        "AND ? >= re.checkIn) \n" +
-        "THEN DATEDIFF(re.checkout, re.checkIn) \n" +
-        "ELSE DATEDIFF(re.checkout, ?)\n" +
+        "CASE WHEN (DATE_SUB(?, INTERVAL 180 DAY) <= re.checkout\n" +
+        "AND DATE_SUB(?, INTERVAL 180 DAY) >= re.checkIn) \n" +
+        "THEN DATEDIFF(re.checkout, DATE_SUB(?, INTERVAL 180 DAY)) \n" +
+        "WHEN (DATE_SUB(?, INTERVAL 180 DAY) <= re.checkIn\n" +
+        "AND ? >= checkOut)\n" +
+        "THEN DATEDIFF(re.checkout, re.checkIn)\n" +
+        "ELSE DATEDIFF(?, checkIn)\n" +
         "END as Days\n" +
         "FROM \n" +
         "Reservations as re JOIN rooms as r \n" +
         "ON re.room = r.roomID\n" +
         "WHERE \n" +
-        "(DATE_SUB(?, INTERVAL 180 DAY) <= re.checkIn\n" +
+        "(DATE_SUB(?, INTERVAL 180 DAY) <= re.checkout\n" +
         "AND ? >= re.checkIn) \n" +
-        "OR (? BETWEEN re.checkIn AND checkout)\n" +
         ")a \n" +
         "GROUP BY rid, roomName\n" +
         "ORDER BY Popularity\n" +
@@ -168,6 +170,8 @@ public class RoomAvailabilityDaoImpl implements Dao<Availability> {
             preparedStatement.setDate(8, date);
             preparedStatement.setDate(9, date);
             preparedStatement.setDate(10, date);
+            preparedStatement.setDate(11, date);
+            preparedStatement.setDate(12, date);
 
 
             resultSet = preparedStatement.executeQuery();
