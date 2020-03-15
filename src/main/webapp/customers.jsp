@@ -34,6 +34,6 @@ Message:
     </c:forEach>
 </table>
 <p><a href="create_customer">Add</a></p>
-<p><a href="./home">home</a></p>
+<p><a href="report">home</a></p>
 </body>
 </html>

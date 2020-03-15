@@ -29,14 +29,12 @@
 </head>
 <body>
     <ul>
-    <li><a href="./customers">customers</a></li>
     <li><a href="./create_reservations">Make a reservation</a></li>
     <li><a href="./delete_reservations">Cancel a reservation</a></li>
     <li><a href="./edit_reservations">Change a reservation</a></li>
     <li><a href="./logout">logout</a></li>
     <li><a href="./availability_reservations">room_availability</a></li>
-    <li><a href="./admin">admin</a></li>
-    <li><a href="./report">reports</a><li>
+
     </ul>
 <p>${message}</p>
 <table>

@@ -44,6 +44,7 @@ Message:
         </tr>
     </c:forEach>
 </table>
+<p><a href="customers">customerPortal</a></p>
 <p><a href="./logout">logout</a></p>
 </body>
 </html>
