@@ -36,7 +36,7 @@
     <li><a href="./logout">logout</a></li>
     <li><a href="./availability_reservations">room_availability</a></li>
     <li><a href="./admin">admin</a></li>
-    <li><a href="./reports">reports</a><li>
+    <li><a href="./report">reports</a><li>
     </ul>
 <p>${message}</p>
 <table>
