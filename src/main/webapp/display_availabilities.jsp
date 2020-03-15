@@ -34,7 +34,7 @@
 <p>${message}</p>
 <table>
     <thead>Room_Availability</thead>
-    <tr><th>room</th><th>bedType</th><th>beds</th><th>maxOccupancy</th><th>stay length</th> <th>popularity</th></tr>
+    <tr><th>room</th><th>bedType</th><th>beds</th><th>maxOccupancy</th><th>stay length</th><th>availability</th><th>popularity</th></tr>
     <c:forEach items="${availabilities}" var="availability">
         <tr>
             <td>${availability.roomName}</td>
@@ -42,6 +42,7 @@
             <td>${availability.beds}</td>
             <td>${availability.maxOccupancy}</td>
             <td>${availability.length}</td>
+            <td>${availability.available}</td>
             <td>${availability.popularity}</td>
         </tr>
     </c:forEach>
