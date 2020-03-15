@@ -53,12 +53,14 @@ public class RoomAvailabilityDaoImpl implements Dao<Availability> {
     }
 
     public Set<Availability> getByEverything(Date checkin, Date checkout, Double minPrice, Double maxPrice, String bedType, Integer beds, Integer maxOcc) {
+        System.out.println("everything");
         Calendar cal;
         Set<Availability> availabilities= null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
+            System.out.println("try");
             preparedStatement = this.conn.prepareStatement("SELECT a.RId as roomId, a.roomName, a.basePrice, \n" +
                     "a.bedType, a.beds, a.maxOccupancy, IFNULL(b.Popularity,0) as \n" +
                     "popularity, IFNULL(c.Availability, \"Available\") as Availability,\n" +
@@ -161,6 +163,7 @@ public class RoomAvailabilityDaoImpl implements Dao<Availability> {
 
             resultSet = preparedStatement.executeQuery();
             availabilities = unpackResultSet(resultSet);
+            System.out.println("resultSet");
 
             for(int i = 0; i < availabilities.size(); i++){
                 int add = 0;

@@ -38,18 +38,17 @@ public class SearchAvailabilityServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         Date checkinDate = Date.valueOf(request.getParameter("checkinDate"));
         Date checkoutDate = Date.valueOf(request.getParameter("checkoutDate"));
         Double minRate = Double.parseDouble(request.getParameter("minRate"));
         Double maxRate = Double.parseDouble(request.getParameter("maxRate"));
-        String bedType = request.getParameter(request.getParameter("bedType"));
+        String bedType = request.getParameter("bedType");
         Integer beds = Integer.parseInt(request.getParameter("beds"));
         Integer maxOccupancy = Integer.parseInt(request.getParameter("maxOccupancy"));
         Set<Availability> availabilities = ((RoomAvailabilityDaoImpl)availabilityDao).getByEverything(checkinDate, checkoutDate, minRate, maxRate, bedType, beds, maxOccupancy);
         request.setAttribute("availabilities", availabilities);
         request.setAttribute(("message"), "Here are the available rooms:");
-        request.getRequestDispatcher("display_availabilities.jsp").forward(request, response);
+        request.getRequestDispatcher("display_search.jsp").forward(request, response);
     }
 }
 
