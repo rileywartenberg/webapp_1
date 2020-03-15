@@ -59,64 +59,66 @@ public class RoomAvailabilityDaoImpl implements Dao<Availability> {
         ResultSet resultSet = null;
 
         try {
-            preparedStatement = this.conn.prepareStatement("SELECT a.RId as roomId, a.roomName, a.basePrice, \\n\" +\n" +
-                    "        \"a.bedType, a.beds, a.maxOccupancy, IFNULL(b.Popularity,0) as \\n\" +\n" +
-                    "        \"popularity, IFNULL(c.Availability, \\\"Available\\\") as Availability,\\n\" +\n" +
-                    "        \"IFNULL(c.length, 0) as length\\n\" +\n" +
-                    "        \"FROM\\n\" +\n" +
-                    "        \"(\\n\" +\n" +
-                    "        \"SELECT DISTINCT\\n\" +\n" +
-                    "        \"r.roomId as rId, \\n\" +\n" +
-                    "        \"r.roomName as roomName, \\n\" +\n" +
-                    "        \"r.basePrice as basePrice, \\n\" +\n" +
-                    "        \"/*Case statements to check availability*/\\n\" +\n" +
-                    "        \"r.bedType as bedType, r.beds as beds, r.maxOccupancy as maxOccupancy\\n\" +\n" +
-                    "        \"\\n\" +\n" +
-                    "        \"FROM \\n\" +\n" +
-                    "        \"rooms as r \\n\" +\n" +
-                    "        \"\\n\" +\n" +
-                    "        \")a\\n\" +\n" +
-                    "        \"\\n\" +\n" +
-                    "        \"LEFT JOIN \\n\" +\n" +
-                    "        \"(\\n\" +\n" +
-                    "        \"SELECT DISTINCT rid, roomName, SUM(Days)/180 as Popularity\\n\" +\n" +
-                    "        \"FROM\\n\" +\n" +
-                    "        \"(\\n\" +\n" +
-                    "        \"SELECT re.room as rid, r.roomName as roomName, \\n\" +\n" +
-                    "        \"CASE WHEN (DATE_SUB(?, INTERVAL 180 DAY) <= re.checkout\\n\" +\n" +
-                    "        \"AND DATE_SUB(?, INTERVAL 180 DAY) >= re.checkIn) \\n\" +\n" +
-                    "        \"THEN DATEDIFF(re.checkout, DATE_SUB(?, INTERVAL 180 DAY)) \\n\" +\n" +
-                    "        \"WHEN (DATE_SUB(?, INTERVAL 180 DAY) <= re.checkIn\\n\" +\n" +
-                    "        \"AND ? >= checkOut)\\n\" +\n" +
-                    "        \"THEN DATEDIFF(re.checkout, re.checkIn)\\n\" +\n" +
-                    "        \"ELSE DATEDIFF(?, checkIn)\\n\" +\n" +
-                    "        \"END as Days\\n\" +\n" +
-                    "        \"FROM \\n\" +\n" +
-                    "        \"Reservations as re JOIN rooms as r \\n\" +\n" +
-                    "        \"ON re.room = r.roomID\\n\" +\n" +
-                    "        \"WHERE \\n\" +\n" +
-                    "        \"(DATE_SUB(?, INTERVAL 180 DAY) <= re.checkout\\n\" +\n" +
-                    "        \"AND ? >= re.checkIn) \\n\" +\n" +
-                    "        \")a \\n\" +\n" +
-                    "        \"GROUP BY rid, roomName\\n\" +\n" +
-                    "        \"ORDER BY Popularity\\n\" +\n" +
-                    "        \")b\\n\" +\n" +
-                    "        \"ON a.rId = b.rid \\n\" +\n" +
-                    "        \"LEFT JOIN(\\n\" +\n" +
-                    "        \"/*Case 1: If the minimum checkin date that is greater than the wanted date\\n\" +\n" +
-                    "        \"then the next available */\\n\" +\n" +
-                    "        SELECT DISTINCT re.room as rId, re.checkIn, re.checkout, \n" +
-                            "DATEDIFF(checkout, checkIn) as length,\n" +
-                            "CASE WHEN (? >=re.checkIn AND ? < re.checkout\n" +
-                            "OR ? > re.checkIn AND ? < re.checkout OR \n" +
-                            "(? < re.checkIn AND ? >= re.checkout))\n" +
-                            "THEN \"Not Available\"\n" +
-                            "ELSE \"Available\"\n" +
-                            "END as Availability\n" +
-                            "FROM \n" +
-                            "Reservations as re JOIN rooms as r \n" +
-                            "ON re.room = r.roomID\n" +
-                            "WHERE (? >=re.checkIn AND ? < re.checkout\n" +
+            preparedStatement = this.conn.prepareStatement("SELECT a.RId as roomId, a.roomName, a.basePrice, \n" +
+                    "a.bedType, a.beds, a.maxOccupancy, IFNULL(b.Popularity,0) as \n" +
+                    "popularity, IFNULL(c.Availability, \"Available\") as Availability,\n" +
+                    "IFNULL(c.length, 0) as length\n" +
+                    "FROM\n" +
+                    "(\n" +
+                    "SELECT DISTINCT\n" +
+                    "r.roomId as rId, \n" +
+                    "r.roomName as roomName, \n" +
+                    "r.basePrice as basePrice, \n" +
+                    "/*Case statements to check availability*/\n" +
+                    "r.bedType as bedType, r.beds as beds, r.maxOccupancy as maxOccupancy\n" +
+                    "\n" +
+                    "FROM \n" +
+                    "rooms as r \n" +
+                    "\n" +
+                    ")a\n" +
+                    "\n" +
+                    "LEFT JOIN \n" +
+                    "(\n" +
+                    "SELECT DISTINCT rid, roomName, SUM(Days)/180 as Popularity\n" +
+                    "FROM\n" +
+                    "(\n" +
+                    "SELECT re.room as rid, r.roomName as roomName, \n" +
+                    "CASE WHEN (DATE_SUB(?, INTERVAL 180 DAY) <= re.checkout\n" +
+                    "AND DATE_SUB(?, INTERVAL 180 DAY) >= re.checkIn) \n" +
+                    "THEN DATEDIFF(re.checkout, DATE_SUB(?, INTERVAL 180 DAY)) \n" +
+                    "WHEN (DATE_SUB(?, INTERVAL 180 DAY) <= re.checkIn\n" +
+                    "AND ? >= checkOut)\n" +
+                    "THEN DATEDIFF(re.checkout, re.checkIn)\n" +
+                    "ELSE DATEDIFF(?, checkIn)\n" +
+                    "END as Days\n" +
+                    "FROM \n" +
+                    "Reservations as re JOIN rooms as r \n" +
+                    "ON re.room = r.roomID\n" +
+                    "WHERE \n" +
+                    "(DATE_SUB(?, INTERVAL 180 DAY) <= re.checkout\n" +
+                    "AND ? >= re.checkIn) \n" +
+                    ")a \n" +
+                    "GROUP BY rid, roomName\n" +
+                    "ORDER BY Popularity\n" +
+                    ")b\n" +
+                    "ON a.rId = b.rid \n" +
+                    "LEFT JOIN(\n" +
+                    "/*Case 1: If the minimum checkin date that is greater than the wanted date\n" +
+                    "then the next available */\n" +
+                    "\n" +
+                    "\n" +
+                    "SELECT DISTINCT re.room as rId, re.checkIn, re.checkout, \n" +
+                    "DATEDIFF(checkout, checkIn) as length,\n" +
+                    "CASE WHEN (? >=re.checkIn AND ? < re.checkout\n" +
+                    "OR ? > re.checkIn AND ? < re.checkout OR \n" +
+                    "(? < re.checkIn AND ? >= re.checkout))\n" +
+                    "THEN \"Not Available\"\n" +
+                    "ELSE \"Available\"\n" +
+                    "END as Availability\n" +
+                    "FROM \n" +
+                    "Reservations as re JOIN rooms as r \n" +
+                    "ON re.room = r.roomID\n" +
+                    "WHERE (? >=re.checkIn AND ? < re.checkout\n" +
                     "OR ? > re.checkIn AND ? < re.checkout) OR \n" +
                     "(? < re.checkIn AND ? >= re.checkout)\n" +
                     ")c \n" +
@@ -125,7 +127,9 @@ public class RoomAvailabilityDaoImpl implements Dao<Availability> {
                     "a.bedType = ?\n" +
                     "AND a.beds = ?\n" +
                     "AND a.basePrice BETWEEN ? AND ?\n" +
-                    "AND a.maxOccupancy >= ?;");
+                    "AND a.maxOccupancy >= ?;\n");
+
+
             preparedStatement.setDate(1, checkin);
             preparedStatement.setDate(2, checkin);
             preparedStatement.setDate(3, checkin);
