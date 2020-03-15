@@ -14,12 +14,15 @@ public class Report {
     private double october;
     private double november;
     private double december;
+    private double total;
 
-    public Report(String name, double january, double february, double march, double april, double may, double june, double july, double august, double september, double october, double november, double december) {
+
+    public Report(String roomname, double january, double february, double march, double april, double may, double june, double july, double august, double september, double october, double november, double december, double total) {
         this.roomname = roomname;
         this.january = january;
         this.february = february;
         this.march = march;
+        this.april = april;
         this.may = may;
         this.june = june;
         this.july = july;
@@ -28,6 +31,7 @@ public class Report {
         this.october = october;
         this.november = november;
         this.december = december;
+        this.total = total;
     }
 
     public String getRoomname() {
@@ -37,6 +41,10 @@ public class Report {
     public void setName(String roomname) {
         this.roomname = roomname;
     }
+
+    public Double getJanuary() { return january; }
+
+    public void setJanuary(double january) { this.january = january; }
 
     public Double getFebruary() {
         return february;
@@ -107,6 +115,14 @@ public class Report {
 
     public void setDecember(double december) {
         this.december = december;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.december = total;
     }
 
 }

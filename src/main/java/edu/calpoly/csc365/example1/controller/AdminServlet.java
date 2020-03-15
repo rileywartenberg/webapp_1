@@ -35,7 +35,7 @@ public class AdminServlet extends HttpServlet {
         if (authenticationAdmin.authenticate(name, pass)) {
             Cookie loginCookie = AuthenticationAdmin.createLoginCookie(name);
             response.addCookie(loginCookie);
-            response.sendRedirect("adminHome");
+            response.sendRedirect("report");
         } else {
             response.sendRedirect("admin");
         }

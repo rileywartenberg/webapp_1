@@ -1,6 +1,9 @@
 package edu.calpoly.csc365.example1.dao;
 
-import edu.calpoly.csc365.example1.entity.*;
+import edu.calpoly.csc365.example1.entity.Customer;
+import edu.calpoly.csc365.example1.entity.Reservations;
+import edu.calpoly.csc365.example1.entity.Rooms;
+import edu.calpoly.csc365.example1.entity.Report;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -147,21 +150,14 @@ public class DaoManager {
     return new UserDaoImpl(this.getConnection());
   }
 
+    public Dao<Report> getReportDao() throws SQLException {
+        return new ReportDaoImpl(this.getConnection());
+    }
     public AdminDao getAdminDao() throws SQLException {
         return new AdminDaoImpl(this.getConnection());
     }
 
   public Dao<Rooms> getRoomsDao() throws SQLException {
     return new RoomsDaoImpl(this.getConnection());
-  }
-
-  public Dao<Availability> getAvailabilityDao() throws SQLException {
-      return new RoomAvailabilityDaoImpl(this.getConnection());
-
-
-  }
-
-  public Dao<Report> getReportDao() throws SQLException {
-      return new ReportDaoImpl(this.getConnection());
   }
 }

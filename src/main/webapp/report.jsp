@@ -24,16 +24,26 @@ Message:
 <p>${message}</p>
 <table>
     <thead>Reports</thead>
-    <tr><th>id</th><th>name</th><th></th></tr>
+    <tr><th>Room</th><th>January</th><th>February</th><th>March</th><th>April</th><th>May</th><th>June</th><th>July</th><th>August</th><th>September</th><th>October</th><th>November</th><th>December</th><th>Total</th></tr>
     <c:forEach items="${reports}" var="report">
         <tr>
-            <td>${report.id}</td>
-            <td>${report.lastName}</td>
-            <td><a data-id="${report.id}" href="edit_report?id=${report.id}">Edit</a></td>
+            <td>${report.roomname}</td>
+            <td>${report.january}</td>
+            <td>${report.february}</td>
+            <td>${report.march}</td>
+            <td>${report.april}</td>
+            <td>${report.may}</td>
+            <td>${report.june}</td>
+            <td>${report.july}</td>
+            <td>${report.august}</td>
+            <td>${report.september}</td>
+            <td>${report.october}</td>
+            <td>${report.november}</td>
+            <td>${report.december}</td>
+            <td>${report.total}</td>
         </tr>
     </c:forEach>
 </table>
-<p><a href="create_report">Add</a></p>
-<p><a href="./home">home</a></p>
+<p><a href="./logout">logout</a></p>
 </body>
 </html>
