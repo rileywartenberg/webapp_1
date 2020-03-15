@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Availability {
 
     private Date day;
+    private String roomCode;
     private String roomName;
     private Double popularity;
     private Double price;
@@ -16,6 +17,7 @@ public class Availability {
     private Integer maxOccupancy;
 
     public Availability() {
+        this.roomCode = null;
         this.day = null;
         this.roomName = null;
         this.popularity = null;
@@ -29,7 +31,8 @@ public class Availability {
     }
 
     public Availability(Date day, String roomName, Double popularity, Double price, String available,
-                        Date nextDate, Integer length, Integer beds, String bedType, Integer maxOccupancy) {
+                        Date nextDate, Integer length, Integer beds, String bedType, Integer maxOccupancy, String roomCode) {
+        this.roomCode = roomCode;
         this.day = day;
         this.roomName = roomName;
         this.popularity = popularity;
@@ -42,6 +45,13 @@ public class Availability {
         this.maxOccupancy = maxOccupancy;
     }
 
+    public String getRoomCode() {
+        return roomCode;
+    }
+
+    public void setRoomCode(String roomCode) {
+        this.roomCode = roomCode;
+    }
 
     public Date getDay() {
         return day;

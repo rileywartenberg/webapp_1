@@ -534,7 +534,8 @@ public class RoomAvailabilityDaoImpl implements Dao<Availability> {
                 rs.getInt("length"),
                 rs.getInt("beds"),
                 rs.getString("bedType"),
-                rs.getInt("maxOccupancy"));
+                rs.getInt("maxOccupancy"),
+                rs.getString("roomId"));
             availabilities.add(a);
         }
         return availabilities;

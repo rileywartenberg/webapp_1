@@ -45,6 +45,7 @@ public class SearchAvailabilityServlet extends HttpServlet {
         String bedType = request.getParameter("bedType");
         Integer beds = Integer.parseInt(request.getParameter("beds"));
         Integer maxOccupancy = Integer.parseInt(request.getParameter("maxOccupancy"));
+        System.out.println(checkinDate.toString() + checkoutDate.toString() + minRate + maxRate + bedType + beds + maxOccupancy);
         Set<Availability> availabilities = ((RoomAvailabilityDaoImpl)availabilityDao).getByEverything(checkinDate, checkoutDate, minRate, maxRate, bedType, beds, maxOccupancy);
         request.setAttribute("availabilities", availabilities);
         request.setAttribute(("message"), "Here are the available rooms:");
