@@ -54,6 +54,12 @@ public class ReservationsEditServlet extends HttpServlet {
         System.out.println(checkout);
 
         Reservations reservations = reservationsDao.getById(id);
+        if(reservations == null)
+        {
+            request.setAttribute("message", "Reservation does not exist");
+            request.getRequestDispatcher("reservations_edit.jsp").forward(request, response);
+            return;
+        }
 
         if (reservations.getCid() != cid) {
             request.setAttribute("message", "Unauthorized command");

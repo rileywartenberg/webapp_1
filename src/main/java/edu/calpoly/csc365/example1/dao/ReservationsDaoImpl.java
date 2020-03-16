@@ -61,7 +61,10 @@ public class ReservationsDaoImpl implements Dao<Reservations> {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             Set<Reservations> reservationss = unpackResultSet(resultSet);
-            reservations = (Reservations)reservationss.toArray()[0];
+            if(reservationss.isEmpty())
+                return null;
+            else
+                reservations = (Reservations)reservationss.toArray()[0];
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

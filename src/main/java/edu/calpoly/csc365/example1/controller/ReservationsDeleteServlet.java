@@ -39,6 +39,12 @@ public class ReservationsDeleteServlet extends HttpServlet {
 
         Reservations reservations = reservationsDao.getById(id);
 
+        if(reservations == null)
+        {
+            request.setAttribute("message", "Reservation does not exist");
+            request.getRequestDispatcher("reservations_delete.jsp").forward(request, response);
+            return;
+        }
         if (reservations.getCid() != cid) {
             request.setAttribute("message", "Unauthorized command");
             request.getRequestDispatcher("reservations_delete.jsp").forward(request, response);
