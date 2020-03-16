@@ -34,7 +34,7 @@
 <p>${message}</p>
 <table>
     <thead>Room Availability</thead>
-    <tr><th>room</th><th>bedType</th><th>beds</th><th>maxOccupancy</th><th>stay length</th><th>availability</th><th>popularity</th><th>price</th></tr>
+    <tr><th>room</th><th>roomCode</th><th>bedType</th><th>beds</th><th>maxOccupancy</th><th>stay length</th><th>availability</th><th>popularity</th><th>price</th></tr>
     <c:forEach items="${availabilities}" var="availability">
         <tr>
             <td>${availability.roomName}</td>
